@@ -101,8 +101,11 @@ function toSchool(row: CcdSchool): School {
     schoolType: row.school_type,
     titleI: row.title_i_eligible === 1 || row.title_i_schoolwide === 1,
     links: {
-      greatSchools: `https://www.greatschools.org/search/search.page?q=${query}`,
-      niche: `https://www.niche.com/search/?q=${query}&type=k12`,
+      // GreatSchools and Niche block some automated traffic and/or their search endpoints
+      // can return 403/404 depending on client context. A "site:" search reliably routes
+      // users to the correct public page(s).
+      greatSchools: `https://www.google.com/search?q=${query}+site%3Agreatschools.org`,
+      niche: `https://www.google.com/search?q=${query}+site%3Aniche.com%2Fk12`,
       nces: `https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=${row.ncessch}`,
       google: `https://www.google.com/search?q=${query}+school`,
     },

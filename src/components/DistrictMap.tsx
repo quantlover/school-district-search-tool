@@ -61,24 +61,37 @@ export default function DistrictMap({
   const zonePathRef = useRef<SVGPathElement>(null);
   const onSelectSchoolRef = useRef(onSelectSchool);
   const onSelectListingRef = useRef(onSelectListing);
-  const dataRef = useRef({
-    district,
-    schoolZone,
-    schools,
-    listings,
-    selectedSchoolId,
-    selectedListingId,
+  const dataRef = useRef<{
+    district: DistrictDetail | null;
+    schoolZone: AttendanceZone | null;
+    schools: School[];
+    listings: Listing[];
+    selectedSchoolId: string | null;
+    selectedListingId: string | null;
+  }>({
+    district: null,
+    schoolZone: null,
+    schools: [],
+    listings: [],
+    selectedSchoolId: null,
+    selectedListingId: null,
   });
-  onSelectSchoolRef.current = onSelectSchool;
-  onSelectListingRef.current = onSelectListing;
-  dataRef.current = {
-    district,
-    schoolZone,
-    schools,
-    listings,
-    selectedSchoolId,
-    selectedListingId,
-  };
+
+  useEffect(() => {
+    onSelectSchoolRef.current = onSelectSchool;
+    onSelectListingRef.current = onSelectListing;
+  }, [onSelectSchool, onSelectListing]);
+
+  useEffect(() => {
+    dataRef.current = {
+      district,
+      schoolZone,
+      schools,
+      listings,
+      selectedSchoolId,
+      selectedListingId,
+    };
+  }, [district, schoolZone, schools, listings, selectedSchoolId, selectedListingId]);
 
   useEffect(() => {
     const container = containerRef.current;
