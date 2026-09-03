@@ -1,18 +1,18 @@
-# School District Rocks
+# School District Search Tool
 
 Search U.S. homes by **school district** instead of ZIP. The map draws official NCES district boundaries, plots elementary / middle / high schools, and treats school attributes as filters.
 
-**Repo:** [github.com/quantlover/school-district-rocks](https://github.com/quantlover/school-district-rocks)
+**Repo:** [github.com/quantlover/school-district-search-tool](https://github.com/quantlover/school-district-search-tool)
 
 ## Put it on the web (Vercel)
 
 This app needs a Node host (API routes), so GitHub Pages will not work. The usual path:
 
 1. Open [vercel.com/new](https://vercel.com/new) and sign in with GitHub.
-2. Import `quantlover/school-district-rocks`.
+2. Import `quantlover/school-district-search-tool`.
 3. Click Deploy. No env vars are required for this first version.
 
-You get a public URL like `https://school-district-rocks.vercel.app`. Later we can point a custom domain at it.
+You get a public URL like `https://school-district-search-tool.vercel.app`. Later we can point a custom domain at it.
 
 ## Run it
 

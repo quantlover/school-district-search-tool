@@ -152,7 +152,7 @@ export default function Explorer() {
       <aside className="flex max-h-dvh w-full shrink-0 flex-col overflow-y-auto border-b border-[var(--line)] bg-[var(--paper)] lg:h-dvh lg:w-[400px] lg:border-r lg:border-b-0">
         <header className="px-5 pt-6 pb-4">
           <p className="font-sans text-[11px] font-semibold tracking-[0.22em] text-[var(--forest)] uppercase">
-            School District Rocks
+            School District Search Tool
           </p>
           <h1 className="font-display mt-2 text-[1.85rem] leading-tight text-[var(--ink)]">
             Search homes by the schools that serve them.

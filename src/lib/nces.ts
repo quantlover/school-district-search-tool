@@ -281,7 +281,7 @@ async function ncesQuery(endpoint: string, params: Record<string, string>): Prom
   const response = await fetch(url, {
     headers: {
       Accept: "application/json",
-      "User-Agent": "SchoolDistrictRocks/0.1 (district map; local development)",
+      "User-Agent": "SchoolDistrictSearchTool/0.1 (district map; local development)",
     },
     next: { revalidate: 86_400 },
     signal: AbortSignal.timeout(20_000),

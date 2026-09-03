@@ -13,7 +13,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "School District Rocks — homes by school district",
+  title: "School District Search Tool — homes by school district",
   description:
     "Search U.S. homes by school district, draw district boundaries, and filter elementary, middle, and high schools.",
 };

@@ -2,7 +2,7 @@ import type { School, SchoolLevelKey } from "./types";
 
 export const BROWSER_HEADERS = {
   Accept: "application/json",
-  "User-Agent": "SchoolDistrictRocks/0.1 (district map; local development)",
+  "User-Agent": "SchoolDistrictSearchTool/0.1 (district map; local development)",
 };
 
 const CCD_DIRECTORY = "https://educationdata.urban.org/api/v1/schools/ccd/directory/2024/";
