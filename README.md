@@ -1,31 +1,19 @@
 # School District Search Tool
 
-Search U.S. homes by **school district** instead of ZIP. The map draws official NCES district boundaries, plots elementary / middle / high schools, and treats school attributes as filters.
+Search U.S. homes by **school district** instead of ZIP.
 
-**Repo:** [github.com/quantlover/school-district-search-tool](https://github.com/quantlover/school-district-search-tool)
+**Live site:** [schooldistrictsearchtool.vercel.app](https://schooldistrictsearchtool.vercel.app)
 
-## Put it on the web (Vercel)
+## How to use it
 
-This app needs a Node host (API routes), so GitHub Pages will not work. The usual path:
+1. Search a district name or ZIP (try `Princeton Public Schools NJ`, `08540`, or `Austin ISD`).
+2. Click a school to draw its attendance zone (orange) inside the district outline (green).
+3. Filter by elementary, middle, or high school, plus attributes like charter, magnet, Title I, and enrollment.
+4. Open **Niche** for that school’s profile page, or **NCES** for the official CCD record.
 
-1. Open [vercel.com/new](https://vercel.com/new) and sign in with GitHub.
-2. Import `quantlover/school-district-search-tool`.
-3. Click Deploy. No env vars are required for this first version.
+## What’s on the map
 
-You get a public URL like `https://school-district-search-tool.vercel.app`. Later we can point a custom domain at it.
+- **Live:** district search, NCES district boundaries, school points, CCD facts (enrollment, grades, charter, FRPL), filters, and links to NCES / Niche / GreatSchools.
+- **Sample:** house pins are generated inside the polygon for demo only. Real MLS listings need a broker/IDX feed.
 
-## Run it
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000). Try `Princeton Public Schools NJ`, `08540`, or `Austin ISD`.
-
-## What is live vs sample
-
-- **Live:** district search, boundary polygons, school points, CCD facts (enrollment, grades, charter, FRPL), filters, links out to NCES / GreatSchools / Niche.
-- **Sample:** house pins are generated inside the polygon. Real MLS listings need a broker/IDX contract — see the in-product note.
-
-School ratings from GreatSchools or Niche are linked, not scraped. Plug in their APIs later if you get keys.
+School attendance zones come from NCES SABS 2015–16 where available; older or missing zones fall back to the full district outline.
