@@ -1,3 +1,4 @@
+import { buildSchoolLinks } from "./schoolLinks";
 import type { School, SchoolLevelKey } from "./types";
 
 export const BROWSER_HEADERS = {
@@ -72,14 +73,14 @@ function toSchool(row: CcdSchool): School {
   const frpl = positive(row.free_or_reduced_price_lunch);
   const city = row.city_location?.trim() ?? "";
   const state = row.state_location?.trim() ?? "";
-  const query = encodeURIComponent(`${row.school_name} ${city} ${state}`.trim());
+  const displayCity = titleCase(city);
   return {
     ncesId: String(row.ncessch),
     leaid: String(row.leaid).padStart(7, "0"),
     districtName: row.lea_name?.trim() || "School district",
     name: row.school_name,
     street: titleCase(row.street_location ?? ""),
-    city: titleCase(city),
+    city: displayCity,
     state,
     zip: row.zip_location ?? "",
     phone: row.phone,
@@ -100,15 +101,12 @@ function toSchool(row: CcdSchool): School {
     virtual: row.virtual === 1 || row.virtual === 2,
     schoolType: row.school_type,
     titleI: row.title_i_eligible === 1 || row.title_i_schoolwide === 1,
-    links: {
-      // GreatSchools and Niche block some automated traffic and/or their search endpoints
-      // can return 403/404 depending on client context. A "site:" search reliably routes
-      // users to the correct public page(s).
-      greatSchools: `https://www.google.com/search?q=${query}+site%3Agreatschools.org`,
-      niche: `https://www.google.com/search?q=${query}+site%3Aniche.com%2Fk12`,
-      nces: `https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=${row.ncessch}`,
-      google: `https://www.google.com/search?q=${query}+school`,
-    },
+    links: buildSchoolLinks({
+      ncesId: String(row.ncessch),
+      name: row.school_name,
+      city: displayCity,
+      state,
+    }),
   };
 }
 

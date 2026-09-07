@@ -1,4 +1,5 @@
 import { levelsFromName, titleCase } from "./ccd";
+import { buildSchoolLinks } from "./schoolLinks";
 import { stateFromFips } from "./states";
 import type { AttendanceZone, DistrictDetail, DistrictKind, DistrictSummary, School } from "./types";
 
@@ -215,7 +216,6 @@ function schoolFromLocation(attrs: Record<string, unknown>): School {
   const city = titleCase(String(attrs.CITY ?? ""));
   const state = String(attrs.STATE ?? "");
   const ncesId = String(attrs.NCESSCH ?? "");
-  const query = encodeURIComponent(`${name} ${city} ${state}`.trim());
   const levels = levelsFromName(name);
   return {
     ncesId,
@@ -250,12 +250,7 @@ function schoolFromLocation(attrs: Record<string, unknown>): School {
     virtual: false,
     schoolType: null,
     titleI: false,
-    links: {
-      greatSchools: `https://www.greatschools.org/search/search.page?q=${query}`,
-      niche: `https://www.niche.com/search/?q=${query}&type=k12`,
-      nces: `https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=${ncesId}`,
-      google: `https://www.google.com/search?q=${query}+school`,
-    },
+    links: buildSchoolLinks({ ncesId, name, city, state }),
   };
 }
 

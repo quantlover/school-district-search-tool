@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { nicheProfileUrl } from "@/lib/schoolLinks";
 import type {
   AttendanceZone,
   DistrictDetail,
@@ -93,7 +94,7 @@ export default function Explorer() {
         return;
       }
       setDistrict(districtJson.district);
-      setSchools(schoolJson.schools ?? []);
+      setSchools((schoolJson.schools ?? []).map(withNicheLink));
       setListings(listingJson.listings ?? []);
       setListingNote(listingJson.note ?? "");
       skipSearchRef.current = true;
@@ -395,16 +396,21 @@ function SchoolDetail({ school, zone }: { school: School; zone: AttendanceZone |
           ? `Orange outline is this school's attendance zone (NCES SABS ${zone.vintage}; may be dated).`
           : "No published school-level zone for this campus. The green outline is the whole district."}
       </p>
-      <p className="mt-2 text-xs text-[var(--muted)]">Official CCD profile, plus ratings sites:</p>
+      <p className="mt-2 text-xs text-[var(--muted)]">School profile and directory pages:</p>
       <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm">
+        <a
+          className="text-[var(--forest)] underline"
+          href={nicheProfileUrl(school.name, school.city, school.state)}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Niche
+        </a>
         <a className="text-[var(--forest)] underline" href={school.links.nces} target="_blank" rel="noreferrer">
           NCES
         </a>
         <a className="text-[var(--forest)] underline" href={school.links.greatSchools} target="_blank" rel="noreferrer">
           GreatSchools
-        </a>
-        <a className="text-[var(--forest)] underline" href={school.links.niche} target="_blank" rel="noreferrer">
-          Niche
         </a>
       </div>
     </article>
@@ -529,6 +535,16 @@ function kindLabel(kind: DistrictSummary["kind"]): string {
   if (kind === "unified") return "Unified district";
   if (kind === "administrative") return "Administrative";
   return "District";
+}
+
+function withNicheLink(school: School): School {
+  return {
+    ...school,
+    links: {
+      ...school.links,
+      niche: nicheProfileUrl(school.name, school.city, school.state),
+    },
+  };
 }
 
 function shortLevel(level: SchoolLevelKey): string {
