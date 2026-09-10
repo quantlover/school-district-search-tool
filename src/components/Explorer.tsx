@@ -273,6 +273,10 @@ export default function Explorer() {
               className="w-24 rounded border border-[var(--line)] bg-white px-2 py-1 text-right"
             />
           </label>
+          <p className="mt-1 text-[11px] leading-snug text-[var(--muted)]">
+            FRPL % is free or reduced-price lunch eligibility ÷ enrollment (NCES CCD). Often used as a rough
+            proxy for the share of students from lower-income households.
+          </p>
           <label className="mt-3 flex items-center gap-2 text-sm text-[var(--ink)]">
             <input
               type="checkbox"
@@ -384,8 +388,15 @@ function SchoolDetail({ school, zone }: { school: School; zone: AttendanceZone |
         <Fact label="Grades" value={school.gradeLabel} />
         <Fact label="Enrollment" value={school.enrollment?.toLocaleString() ?? "—"} />
         <Fact label="Student–teacher" value={school.studentTeacher?.toFixed(1) ?? "—"} />
-        <Fact label="FRPL" value={school.frplShare != null ? `${school.frplShare}%` : "—"} />
+        <Fact label="FRPL %" value={school.frplShare != null ? `${school.frplShare}%` : "—"} />
       </dl>
+      <p className="mt-2 text-[11px] leading-snug text-[var(--muted)]">
+        FRPL % = students eligible for free or reduced-price lunch ÷ total enrollment (NCES CCD
+        {school.frpl != null && school.enrollment != null
+          ? `: ${school.frpl.toLocaleString()} ÷ ${school.enrollment.toLocaleString()}`
+          : ""}
+        ). Often used as a rough proxy for economic need at the school.
+      </p>
       <div className="mt-3 flex flex-wrap gap-2 text-xs">
         {school.charter ? <Tag>Charter</Tag> : null}
         {school.magnet ? <Tag>Magnet</Tag> : null}
